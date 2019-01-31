@@ -1,0 +1,15 @@
+*.log
+*.pot
+*.pyc
+.env
+.env.staging
+__pycache__/
+local_settings.py
+db.sqlite3
+media
+venv/
+node_modules
+# We are ignoring files inside staticfiles but we'll track this folder itself
+# so that collectstatic can work on Heroku
+staticfiles/*
+.vscode
