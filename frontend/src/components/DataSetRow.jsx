@@ -3,6 +3,7 @@ import {
     Card, CardBody, CardTitle, CardHeader, CardFooter, CardText, Badge,
     Row, Col, Button
 } from 'reactstrap';
+import {Link} from 'react-router-dom'
 import _ from 'lodash'
 
 class DataSetRow extends Component {
@@ -10,7 +11,11 @@ class DataSetRow extends Component {
         var { data, ...rest } = this.props;
         return (
             <Card {...rest}>
-                <CardHeader className="text-primary"><h2 className="h5">{data.name}</h2></CardHeader>
+                <CardHeader className="text-primary">
+                <h2 className="h5">
+                    <Link to={`/detail/${data.id}`}>{data.name}</Link>
+                </h2>
+                </CardHeader>
                 <CardBody>
                     <Row>
                         <Col sm="9">

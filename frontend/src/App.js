@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-
+import { Container, } from 'reactstrap';
+import { Route } from 'react-router-dom'
 import TopNav from './components/TopNav';
-import Sidebar from './components/Sidebar';
-import DataSetList from './components/DataSetList';
-import SearchBar from './components/SearchBar';
 
 import './App.css'
+import SearchPage from './pages/SearchPage';
+import DataSetDetailPage from './pages/DataSetDetailPage';
 
 class App extends Component {
 
@@ -15,17 +14,8 @@ class App extends Component {
       <div>
         <TopNav />
         <Container>
-          <Row className="mt-4 mb-4">
-            <Col sm={{ size: 10, offset: 1 }}>
-              <SearchBar/>
-            </Col>
-          </Row>
-
-          <hr />
-          <Row>
-            <Col sm="4"><Sidebar /></Col>
-            <Col sm="8"><DataSetList /></Col>
-          </Row>
+          <Route exact path="/" component={SearchPage} />
+          <Route exact path="/detail/:id" component={DataSetDetailPage} />
         </Container>
       </div>
 
