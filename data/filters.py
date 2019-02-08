@@ -22,5 +22,8 @@ class DataSetFilter(django_filters.FilterSet):
 
     class Meta:
         model = DataSet
-        fields = ['name', 'description', 'organization', 'location']
+        fields = [
+            'name', 'description', 'organization', 'location', 'data_type',
+            'file_format', 'study_type', 'ownership'
+        ]
         

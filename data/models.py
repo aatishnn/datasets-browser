@@ -8,6 +8,13 @@ class DataSet(models.Model):
     location = models.CharField(max_length=255)
     labels = TaggableManager()
     organization = models.TextField('Organization collecting data')
+    start_year = models.PositiveIntegerField(null=True, blank=True)
+    end_year = models.PositiveIntegerField(null=True, blank=True)
+    data_type = models.CharField(max_length=255, blank=True)
+    ownership = models.CharField(max_length=255, blank=True)
+    study_type = models.CharField(max_length=255, blank=True)
+    file_format = models.CharField(max_length=255, blank=True)
+
 
     added_at = models.DateTimeField(auto_now_add=True)
 

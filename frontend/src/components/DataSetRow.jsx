@@ -3,8 +3,9 @@ import {
     Card, CardBody, CardTitle, CardHeader, CardFooter, CardText, Badge,
     Row, Col, Button
 } from 'reactstrap';
+import _ from 'lodash'
 
-class DataSet extends Component {
+class DataSetRow extends Component {
     render() {
         var { data, ...rest } = this.props;
         return (
@@ -14,7 +15,7 @@ class DataSet extends Component {
                     <Row>
                         <Col sm="9">
                             <CardText>
-                                {data.description}
+                                {_.truncate(data.description, {length: 100})}
                             </CardText>
                             <CardText>
                                 <strong>Organization collecting data:</strong><br />
@@ -27,12 +28,10 @@ class DataSet extends Component {
                             </CardText>
                         </Col>
                         <Col sm="3" className="text-muted border border-right-0 border-top-0 border-bottom-0">
-                            <strong>Added on:</strong><br /> {data.added_at.slice(0, "yyyy-mm-dd".length)} <br />
                             <strong>File Format:</strong><br /> {data.file_format || 'na'} <br />
                             <strong>Data Type:</strong><br /> {data.data_type || 'na'} <br />
                             <strong>Study Type:</strong><br /> {data.study_type || 'na'} <br />
                             <strong>Ownership:</strong><br /> {data.ownership || 'na'} <br />
-
                         </Col>
                     </Row>
                 </CardBody>
@@ -48,4 +47,4 @@ class DataSet extends Component {
     }
 }
 
-export default DataSet
+export default DataSetRow

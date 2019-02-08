@@ -6,6 +6,7 @@ import DataSet from './DataSet';
 import PagePagination from './PagePagination';
 import Loading from './Loading';
 import {setPage, setPages} from '../actions';
+import DataSetRow from './DataSetRow';
 
 class DataSetList extends Component {
     cancelToken = Axios.CancelToken.source();
@@ -25,6 +26,14 @@ class DataSetList extends Component {
         params += _.join(this.props.location.map(l => `location=${l.value}`), '&')
         params += '&'
         params += _.join(this.props.organization.map(l => `organization=${l.value}`), '&')
+        params += '&'
+        params += _.join(this.props.ownership.map(l => `ownership=${l.value}`), '&')
+        params += '&'
+        params += _.join(this.props.dataType.map(l => `data_type=${l.value}`), '&')
+        params += '&'
+        params += _.join(this.props.fileFormat.map(l => `file_format=${l.value}`), '&')
+        params += '&'
+        params += _.join(this.props.studyType.map(l => `study_type=${l.value}`), '&')
 
         if (this.props.q) {
             params += `&q=${this.props.q}`
@@ -76,7 +85,7 @@ class DataSetList extends Component {
         return (
             <div>
                 {this.state.dataSets.map(dataSet => (
-                    <DataSet data={dataSet} key={dataSet.id} className="mb-4" />
+                    <DataSetRow data={dataSet} key={dataSet.id} className="mb-4" />
                 ))}
                 <div className="float-right">
                     <PagePagination page={page} pages={pages} onPageChange={this.onPageChange} />
@@ -91,6 +100,10 @@ const mapStateToProps = state => {
         label: state.label,
         location: state.location,
         organization: state.organization,
+        ownership: state.ownership,
+        studyType: state.studyType,
+        dataType: state.dataType,
+        fileFormat: state.fileFormat,
         q: state.q,
         page: state.page,
         page_size: state.page_size,
