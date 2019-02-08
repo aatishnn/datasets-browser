@@ -69,6 +69,12 @@ heroku addons:create heroku-postgresql:hobby-dev
 git push heroku master
 ```
 
+- Migrate and seed
+```
+heroku run python manage.py migrate
+heroku run python manage.y import_csv datadir/md4sg.csv
+```
+
 This deployment will build the React app and serve it on `/`. To open the app, you can do:
 ```
 heroku open
