@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import {
-    Card, CardBody, CardTitle, CardHeader, CardFooter, CardText, Badge,
-    Row, Col, Button
+    Card, CardBody, CardHeader, CardFooter, CardText, Badge,
+    Row, Col
 } from 'reactstrap';
 import {Link} from 'react-router-dom'
+
 import _ from 'lodash'
 
 class DataSetRow extends Component {
@@ -13,7 +14,7 @@ class DataSetRow extends Component {
             <Card {...rest}>
                 <CardHeader className="text-primary">
                 <h2 className="h5">
-                    <Link to={`/detail/${data.id}`}>{data.name}</Link>
+                    <Link to={`/dataset/${data.id}`}>{data.name}</Link>
                 </h2>
                 </CardHeader>
                 <CardBody>

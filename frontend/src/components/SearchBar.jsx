@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 import {connect} from 'react-redux'
-import {setQ} from '../actions'
+import {setQ} from '../actions/filterActions'
 
 class SearchBar extends Component {
     state = {

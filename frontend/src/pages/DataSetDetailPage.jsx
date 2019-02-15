@@ -10,7 +10,7 @@ class DataSetDetailPage extends Component {
         data: null
     }
     componentDidMount() {
-        Axios.get(`/api/datasets/${this.props.match.params.id}`)
+        Axios.get(`/api/datasets/${this.props.match.params.id}/`)
             .then(res => {
                 this.setState({data: res.data})
             })

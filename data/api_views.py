@@ -7,7 +7,7 @@ from .serializers import DataSetSerializer
 from .filters import DataSetFilter
 from .metadata import FilterMetadata
 
-class DataSetViewSet(viewsets.ReadOnlyModelViewSet):
+class DataSetViewSet(viewsets.ModelViewSet):
     queryset = DataSet.objects.all()
     serializer_class = DataSetSerializer
     filterset_class = DataSetFilter
