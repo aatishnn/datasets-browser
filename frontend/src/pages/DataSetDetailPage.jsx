@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Button} from 'reactstrap'
 import DataSet from '../components/DataSet';
 import Axios from 'axios';
-import { Link } from 'react-router-dom'
-
+import GoBackButton from '../components/GoBackButton'
 
 class DataSetDetailPage extends Component {
     state = {
@@ -19,7 +18,7 @@ class DataSetDetailPage extends Component {
     render() { 
         return (
             <div className="mt-4">
-                <Link to="/"><Button color="secondary" className="rounded-pill">Back</Button></Link>
+                <GoBackButton/>
                 <br/>
                 <br/>
                 {!this.state.data ? <div>Loading</div>: <DataSet data={this.state.data}/>}

@@ -19,6 +19,7 @@ from data.views import FrontendAppView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/auth/', include('rest_auth.urls')),
     path('api/', include('data.urls')),
     # serve frontend
     re_path('^', FrontendAppView.as_view())

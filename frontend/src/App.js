@@ -11,6 +11,8 @@ import DataSetEdit from './pages/DataSetEdit';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import DataSetCreate from './pages/DataSetEdit/DataSetCreate';
+import Login from './pages/Auth/Login';
+import PrivateRoute from './pages/Auth/PrivateRoute';
 
 
 class App extends Component {
@@ -19,12 +21,13 @@ class App extends Component {
     return (
       <div>
         <TopNav />
-        <Container>
+        <Container className="mt-4">
           <Switch>
             <Route exact path="/" component={SearchPage} />
-            <Route exact path="/dataset/new/" component={DataSetCreate} />
+            <Route exact path="/login/" component={Login} />
+            <PrivateRoute exact path="/dataset/new/" component={DataSetCreate} />
             <Route exact path="/dataset/:id/" component={DataSetDetailPage} />
-            <Route exact path="/dataset/:id/edit/" component={DataSetEdit} />
+            <PrivateRoute exact path="/dataset/:id/edit/" component={DataSetEdit} />
           </Switch>
         </Container>
         <ToastContainer

@@ -40,7 +40,6 @@ const initialValues = {
 
 class DataSetForm extends Component {
   render() {
-    console.log(this.props.data)
     return (
       <Formik
         initialValues={this.props.data || initialValues}

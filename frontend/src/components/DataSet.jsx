@@ -4,10 +4,7 @@ import {
   Row, Col
 } from 'reactstrap';
 
-import {Link} from 'react-router-dom'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import DataSetEditLink from './DataSetEditLink';
 
 
 
@@ -18,11 +15,7 @@ class DataSet extends Component {
       <Card {...rest}>
         <CardHeader className="text-primary">
           <h2 className="h5">{data.name}
-            <Link to={`/dataset/${data.id}/edit/`}>
-              <span className="float-right">
-                <FontAwesomeIcon icon={faEdit} className="float-right" />
-              </span>
-            </Link>
+            <DataSetEditLink id={data.id}/>
           </h2>
         </CardHeader>
         <CardBody>
