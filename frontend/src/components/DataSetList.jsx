@@ -8,6 +8,7 @@ import Loading from './Loading';
 import { setPage, setPages } from '../actions/filterActions';
 import DataSetRow from './DataSetRow';
 import { getFilter } from '../selectors/filterSelectors';
+import { getAuthState } from '../selectors/authSelectors';
 
 class DataSetList extends Component {
   cancelToken = Axios.CancelToken.source();
@@ -45,11 +46,17 @@ class DataSetList extends Component {
   fetchData = () => {
     var { page, page_size } = this.props;
     this.setState({ loading: true })
+    var headers = {}
+    console.log(this.props)
+    if (this.props.token) {
+      headers = {'Authorization': `Token ${this.props.token}`}
+    }
     Axios.get(
       `/api/datasets/?page_size=${page_size}&page=${page}`
       + this.buildQueryParams('&')
       , {
-        cancelToken: this.cancelToken.token
+        cancelToken: this.cancelToken.token,
+        headers: headers
       })
       .then(res => {
         let pages = Math.ceil(res.data.count / page_size);
@@ -97,7 +104,10 @@ class DataSetList extends Component {
 }
 
 const mapStateToProps = state => {
-  return getFilter(state)
+  return {
+    ...getFilter(state),
+    token: getAuthState(state).token
+  }
 }
 
 export default connect(mapStateToProps, { setPage, setPages })(DataSetList);

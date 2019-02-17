@@ -9,13 +9,13 @@ class DataSetEdit extends Component {
   render() {
     return (
       <>
-      <GoBackButton/>
-      <Card className="mt-4">
-        <CardHeader><h3>Edit Dataset</h3></CardHeader>
-        <CardBody>
-          <DataSetForm data={this.props.data}/>
-        </CardBody>
-      </Card>
+        <GoBackButton />
+        <Card className="mt-4">
+          <CardHeader><h3>Edit Dataset</h3></CardHeader>
+          <CardBody>
+            <DataSetForm data={this.props.data} />
+          </CardBody>
+        </Card>
       </>
     );
   }

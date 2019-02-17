@@ -42,7 +42,7 @@ def save_csv_row_to_dataset(row):
     dataset.data_type = normalize_capitalize_remove_na(row['data_type'])
     dataset.study_type = normalize_capitalize_remove_na(row['study_type'])
     dataset.file_format = normalize_capitalize_remove_na(row['file_format'])
-
+    dataset.approved = True
     dataset.save()
 
 

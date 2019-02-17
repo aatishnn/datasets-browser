@@ -144,3 +144,4 @@ TAGGIT_CASE_INSENSITIVE = True
 
 
 from .settings_drf import *
+from .settings_email import *

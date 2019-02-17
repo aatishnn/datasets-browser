@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import DataSetCreate from './pages/DataSetEdit/DataSetCreate';
 import Login from './pages/Auth/Login';
 import PrivateRoute from './pages/Auth/PrivateRoute';
+import DataSetSuggestPage from './pages/DataSetSuggestPage';
+import DataSetSuggestSuccessPage from './pages/DataSetSuggestSuccessPage';
 
 
 class App extends Component {
@@ -25,6 +27,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={SearchPage} />
             <Route exact path="/login/" component={Login} />
+            <Route exact path="/dataset/suggest/" component={DataSetSuggestPage} />
+            <Route exact path="/dataset-suggest-success/" component={DataSetSuggestSuccessPage} />
+
             <PrivateRoute exact path="/dataset/new/" component={DataSetCreate} />
             <Route exact path="/dataset/:id/" component={DataSetDetailPage} />
             <PrivateRoute exact path="/dataset/:id/edit/" component={DataSetEdit} />

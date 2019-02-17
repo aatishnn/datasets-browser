@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import Axios from 'axios';
 import { FormGroup, Label, Form, Input, FormText, FormFeedback, Button } from 'reactstrap'
 import { OrganizationFilter, LabelsFilter, DataTypeFilter, OwnershipFilter, FileFormatFilter, StudyTypeFilter, LocationFilter } from '../../components/SelectFilter';
-import { getAuthState } from '../../selectors/authSelectors';
 
 
 const DataSetSchema = Yup.object().shape({
@@ -21,7 +19,6 @@ const DataSetSchema = Yup.object().shape({
   'labels': Yup.array().required('Required').min(0),
   'start_year': Yup.number().nullable().positive(),
   'end_year': Yup.number().nullable().positive()
-
 });
 
 const initialValues = {
@@ -37,30 +34,21 @@ const initialValues = {
   data_type: '',
   labels: [],
   start_year: null,
-  end_year: null,
-  approved: false,
+  end_year: null
 }
 
-class DataSetForm extends Component {
+class DataSetRequestForm extends Component {
   render() {
-    console.log(this.props)
     return (
       <Formik
         initialValues={this.props.data || initialValues}
         validationSchema={DataSetSchema}
-        onSubmit={(values, { setSubmitting, setFieldValue }) => {
-          const method = values.id ? 'put' : 'post';
-          const verb = values.id ? 'updated' : 'created';
-          const url = `/api/datasets/` + (method === 'put' ? `${values.id}/` : '')
-          Axios[method](url, values, {
-            headers: {
-              'Authorization': `Token ${this.props.token}`
-            }
-          })
+        onSubmit={(values, { setSubmitting, setFieldValue}) => {
+          const url = `/api/request-dataset/`;
+          Axios.post(url, values)
             .then((res) => {
               setSubmitting(false)
-              setFieldValue('id', res.data.id)
-              toast.success(`Successfully ${verb} the dataset`)
+              this.props.onSuccess(res.data.id)
             })
             .catch(() => {
               toast.error('There was an error saving the dataset')
@@ -70,15 +58,6 @@ class DataSetForm extends Component {
       >
         {({ isSubmitting, handleSubmit, setFieldTouched, setFieldValue, values, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-             <FormGroup check className="mb-4">
-              <Label check>
-                <Input type="checkbox" tag={Field} name="approved"
-                checked={values.approved}
-                  component="input"
-                />{' '}
-                Approved
-              </Label>
-            </FormGroup>
             <FormGroup>
               <Label for="name">Name of dataset</Label>
               <Input
@@ -161,7 +140,7 @@ class DataSetForm extends Component {
               <LabelsFilter
                 name="labels"
                 value={values.labels.map(label => {
-                  return { label: label, value: label }
+                  return {label: label, value: label}
                 })}
                 onChange={(value) => setFieldValue('labels', value.map(v => v.value))}
                 onBlur={() => setFieldTouched('labels', true)}
@@ -250,7 +229,6 @@ class DataSetForm extends Component {
               <FormText></FormText>
             </FormGroup>
 
-         
 
             <Button type="submit" disabled={isSubmitting}>
               Submit
@@ -263,4 +241,4 @@ class DataSetForm extends Component {
   }
 }
 
-export default connect((state) => { return { ...getAuthState(state) } })(DataSetForm);
+export default DataSetRequestForm;

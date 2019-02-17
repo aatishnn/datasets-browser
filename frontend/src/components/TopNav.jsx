@@ -36,6 +36,9 @@ class TopNav extends Component {
               <NavItem>
                 <Link to="/login/"><NavLink>Moderators Login</NavLink></Link>
               </NavItem>
+              <NavItem>
+                <Link to="/dataset/suggest/"><NavLink>Suggest dataset</NavLink></Link>
+              </NavItem>
             </VisibleWhenAuthenticated>
             <VisibleWhenAuthenticated>
               <NavItem>
