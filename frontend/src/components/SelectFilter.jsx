@@ -19,8 +19,7 @@ function SelectFilter(field, label) {
   }
 
   function wrapped(props) {
-    var { schema, schemaLoading, refreshFilterSchema } = props;
-    refreshFilterSchema()
+    var { schema, schemaLoading } = props;
 
     const getSelectOptions = () => {
       return _.get(schema, field).options.map((v, i) => {

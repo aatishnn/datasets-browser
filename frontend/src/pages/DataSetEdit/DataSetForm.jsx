@@ -4,9 +4,10 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
-import { FormGroup, Label, Form, Input, FormText, FormFeedback, Button } from 'reactstrap'
+import { FormGroup, Label, Form, Input, FormText, FormFeedback, Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap'
 import { OrganizationFilter, LabelsFilter, DataTypeFilter, OwnershipFilter, FileFormatFilter, StudyTypeFilter, LocationFilter } from '../../components/SelectFilter';
 import { getAuthState } from '../../selectors/authSelectors';
+import { refreshFilterSchema } from '../../actions/filterActions';
 
 
 const DataSetSchema = Yup.object().shape({
@@ -20,7 +21,11 @@ const DataSetSchema = Yup.object().shape({
   'organization': Yup.string().required('Required'),
   'labels': Yup.array().required('Required').min(0),
   'start_year': Yup.number().nullable().positive(),
-  'end_year': Yup.number().nullable().positive()
+  'end_year': Yup.number().nullable().positive(),
+
+  'submitter_name': Yup.string(),
+  'submitter_email': Yup.string().email(),
+  'submitter_organization': Yup.string(),
 
 });
 
@@ -39,11 +44,19 @@ const initialValues = {
   start_year: null,
   end_year: null,
   approved: false,
+
+  submitter_name: '',
+  submitter_email: '',
+  submitter_organization: '',
+  submitter_subscribed: true,
+
 }
 
 class DataSetForm extends Component {
+  componentDidMount() {
+    this.props.refreshFilterSchema()
+  }
   render() {
-    console.log(this.props)
     return (
       <Formik
         initialValues={this.props.data || initialValues}
@@ -70,10 +83,10 @@ class DataSetForm extends Component {
       >
         {({ isSubmitting, handleSubmit, setFieldTouched, setFieldValue, values, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-             <FormGroup check className="mb-4">
+            <FormGroup check className="mb-4">
               <Label check>
                 <Input type="checkbox" tag={Field} name="approved"
-                checked={values.approved}
+                  checked={values.approved}
                   component="input"
                 />{' '}
                 Approved
@@ -250,7 +263,60 @@ class DataSetForm extends Component {
               <FormText></FormText>
             </FormGroup>
 
-         
+            <Card className="mb-4">
+              <CardHeader>
+                Submitter's Information
+              </CardHeader>
+              <CardBody>
+                <FormGroup>
+                  <Label for="submitter_name">Name</Label>
+                  <Input
+                    type="text"
+                    name="submitter_name"
+                    tag={Field}
+                    valid={touched.submitter_name && !errors.submitter_name}
+                    invalid={touched.submitter_name && errors.submitter_name}
+                  />
+                  <FormFeedback>{errors.submitter_name}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="submitter_email">Email</Label>
+                  <Input
+                    type="text"
+                    name="submitter_email"
+                    tag={Field}
+                    valid={touched.submitter_email && !errors.submitter_email}
+                    invalid={touched.submitter_email && errors.submitter_email}
+                  />
+                  <FormFeedback>{errors.submitter_email}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="submitter_organization">Organization</Label>
+                  <Input
+                    type="text"
+                    name="submitter_organization"
+                    tag={Field}
+                    valid={touched.submitter_organization && !errors.submitter_organization}
+                    invalid={touched.submitter_organization && errors.submitter_organization}
+                  />
+                  <FormFeedback>{errors.submitter_organization}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup className="ml-4">
+                  <Label check>
+                    <Input type="checkbox" tag={Field} name="submitter_subscribed"
+                      checked={values.submitter_subscribed}
+                      component="input"
+                    />
+                    Subscribed for further communication.
+                  </Label>
+                </FormGroup>
+              </CardBody>
+            </Card>
+
+
 
             <Button type="submit" disabled={isSubmitting}>
               Submit
@@ -263,4 +329,13 @@ class DataSetForm extends Component {
   }
 }
 
-export default connect((state) => { return { ...getAuthState(state) } })(DataSetForm);
+const mapStateToProps = (state) => {
+  return {
+    ...getAuthState(state)
+  };
+}
+const mapDispatchToProps = {
+  refreshFilterSchema
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DataSetForm);

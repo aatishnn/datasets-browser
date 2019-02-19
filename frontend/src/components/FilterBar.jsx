@@ -15,6 +15,10 @@ class FilterBar extends Component {
         advancedFilters: false
     }
 
+    componentDidMount() {
+      this.props.refreshFilterSchema()
+    }
+
     toggleAdvancedFilters = () => {
         this.setState({ advancedFilters: !this.state.advancedFilters })
     }
@@ -25,9 +29,6 @@ class FilterBar extends Component {
         })
     }
 
-    componentDidMount() {
-      this.props.refreshFilterSchema();
-    }
 
     render() {
         var { schema, schemaLoading } = this.props;

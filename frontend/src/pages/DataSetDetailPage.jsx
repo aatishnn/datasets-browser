@@ -1,30 +1,21 @@
-import React, {Component} from 'react'
-import {Button} from 'reactstrap'
+import React, { Component } from 'react'
 import DataSet from '../components/DataSet';
-import Axios from 'axios';
 import GoBackButton from '../components/GoBackButton'
+import withDataSet from '../components/withDataSet';
+
+const DataSetDetail = withDataSet(DataSet)
 
 class DataSetDetailPage extends Component {
-    state = {
-        data: null
-    }
-    componentDidMount() {
-        Axios.get(`/api/datasets/${this.props.match.params.id}/`)
-            .then(res => {
-                this.setState({data: res.data})
-            })
-    }
-
-    render() { 
-        return (
-            <div className="mt-4">
-                <GoBackButton/>
-                <br/>
-                <br/>
-                {!this.state.data ? <div>Loading</div>: <DataSet data={this.state.data}/>}
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="mt-4">
+        <GoBackButton />
+        <br />
+        <br />
+        <DataSetDetail/>
+      </div>
+    )
+  }
 }
- 
 export default DataSetDetailPage;
+

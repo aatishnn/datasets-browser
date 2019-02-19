@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import { connect } from 'react-redux'
+
 import Axios from 'axios';
-import { FormGroup, Label, Form, Input, FormText, FormFeedback, Button } from 'reactstrap'
+import { FormGroup, Label, Form, Input, FormText, FormFeedback, Button, Card, CardHeader, CardBody } from 'reactstrap'
 import { OrganizationFilter, LabelsFilter, DataTypeFilter, OwnershipFilter, FileFormatFilter, StudyTypeFilter, LocationFilter } from '../../components/SelectFilter';
+import { refreshFilterSchema } from '../../actions/filterActions';
 
 
 const DataSetSchema = Yup.object().shape({
@@ -18,7 +21,11 @@ const DataSetSchema = Yup.object().shape({
   'organization': Yup.string().required('Required'),
   'labels': Yup.array().required('Required').min(0),
   'start_year': Yup.number().nullable().positive(),
-  'end_year': Yup.number().nullable().positive()
+  'end_year': Yup.number().nullable().positive(),
+
+  'submitter_name': Yup.string(),
+  'submitter_email': Yup.string().email(),
+  'submitter_organization': Yup.string(),
 });
 
 const initialValues = {
@@ -32,18 +39,25 @@ const initialValues = {
   location: '',
   ownership: '',
   data_type: '',
+  submitter_name: '',
+  submitter_email: '',
+  submitter_organization: '',
+  submitter_subscribed: true,
   labels: [],
   start_year: null,
-  end_year: null
+  end_year: null,
 }
 
-class DataSetRequestForm extends Component {
+class DataSetSuggestForm extends Component {
+  componentDidMount() {
+    this.props.refreshFilterSchema()
+  }
   render() {
     return (
       <Formik
         initialValues={this.props.data || initialValues}
         validationSchema={DataSetSchema}
-        onSubmit={(values, { setSubmitting, setFieldValue}) => {
+        onSubmit={(values, { setSubmitting, setFieldValue }) => {
           const url = `/api/request-dataset/`;
           Axios.post(url, values)
             .then((res) => {
@@ -95,7 +109,7 @@ class DataSetRequestForm extends Component {
               <FormText></FormText>
             </FormGroup>
             <FormGroup>
-              <Label for="name">Description</Label>
+              <Label for="name">Description or Link</Label>
               <Input
                 type="textarea"
                 name="description"
@@ -140,7 +154,7 @@ class DataSetRequestForm extends Component {
               <LabelsFilter
                 name="labels"
                 value={values.labels.map(label => {
-                  return {label: label, value: label}
+                  return { label: label, value: label }
                 })}
                 onChange={(value) => setFieldValue('labels', value.map(v => v.value))}
                 onBlur={() => setFieldTouched('labels', true)}
@@ -229,6 +243,59 @@ class DataSetRequestForm extends Component {
               <FormText></FormText>
             </FormGroup>
 
+            <Card className="mb-4">
+              <CardHeader>
+                If you would not mind following up with you regarding any questions on this dataset, please indicate your:
+              </CardHeader>
+              <CardBody>
+                <FormGroup>
+                  <Label for="submitter_name">Name</Label>
+                  <Input
+                    type="text"
+                    name="submitter_name"
+                    tag={Field}
+                    valid={touched.submitter_name && !errors.submitter_name}
+                    invalid={touched.submitter_name && errors.submitter_name}
+                  />
+                  <FormFeedback>{errors.submitter_name}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="submitter_email">Email</Label>
+                  <Input
+                    type="text"
+                    name="submitter_email"
+                    tag={Field}
+                    valid={touched.submitter_email && !errors.submitter_email}
+                    invalid={touched.submitter_email && errors.submitter_email}
+                  />
+                  <FormFeedback>{errors.submitter_email}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="submitter_organization">Organization</Label>
+                  <Input
+                    type="text"
+                    name="submitter_organization"
+                    tag={Field}
+                    valid={touched.submitter_organization && !errors.submitter_organization}
+                    invalid={touched.submitter_organization && errors.submitter_organization}
+                  />
+                  <FormFeedback>{errors.submitter_organization}</FormFeedback>
+                  <FormText></FormText>
+                </FormGroup>
+                <FormGroup className="ml-4">
+                  <Label check>
+                    <Input type="checkbox" tag={Field} name="submitter_subscribed"
+                      checked={values.submitter_subscribed}
+                      component="input"
+                    />
+                    Check here if you want your email address to be subscribed for further communication.
+                  </Label>
+                </FormGroup>
+              </CardBody>
+            </Card>
+
 
             <Button type="submit" disabled={isSubmitting}>
               Submit
@@ -241,4 +308,15 @@ class DataSetRequestForm extends Component {
   }
 }
 
-export default DataSetRequestForm;
+
+const mapStateToProps = (state) => {
+  return {
+
+  };
+}
+const mapDispatchToProps = {
+  refreshFilterSchema
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DataSetSuggestForm);
+

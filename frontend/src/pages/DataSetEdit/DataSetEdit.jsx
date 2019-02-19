@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardHeader, CardText, CardFooter } from 'reactstrap'
 import DataSetForm from './DataSetForm';
-import withDataSet from './withDataSet';
 import GoBackButton from '../../components/GoBackButton';
+import withDataSet from '../../components/withDataSet';
 
+const DataSetEditForm = withDataSet(DataSetForm)
 
 class DataSetEdit extends Component {
   render() {
@@ -13,7 +14,7 @@ class DataSetEdit extends Component {
         <Card className="mt-4">
           <CardHeader><h3>Edit Dataset</h3></CardHeader>
           <CardBody>
-            <DataSetForm data={this.props.data} />
+            <DataSetEditForm/>
           </CardBody>
         </Card>
       </>
@@ -21,4 +22,4 @@ class DataSetEdit extends Component {
   }
 }
 
-export default withDataSet(DataSetEdit);
+export default DataSetEdit;

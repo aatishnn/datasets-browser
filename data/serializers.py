@@ -32,4 +32,8 @@ class DataSetRequestSerializer(TaggitSerializer, serializers.ModelSerializer):
             'ownership',
             'study_type',
             'file_format',
+            'submitter_name',
+            'submitter_email',
+            'submitter_organization',
+            'submitter_subscribed'
         )

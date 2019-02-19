@@ -34,15 +34,21 @@ class TopNav extends Component {
           <Nav className="ml-auto" navbar>
             <VisibleWhenAuthenticated reverse={true}>
               <NavItem>
-                <Link to="/login/"><NavLink>Moderators Login</NavLink></Link>
+                <Link to="/login/">
+                  <NavLink className="text-white">Moderators Login</NavLink>
+                </Link>
               </NavItem>
               <NavItem>
-                <Link to="/dataset/suggest/"><NavLink>Suggest dataset</NavLink></Link>
+                <Link to="/dataset/suggest/">
+                  <NavLink className="text-white">Suggest dataset</NavLink>
+                </Link>
               </NavItem>
             </VisibleWhenAuthenticated>
             <VisibleWhenAuthenticated>
               <NavItem>
-                <Link to="/dataset/new/"><NavLink>Add Dataset</NavLink></Link>
+                <Link to="/dataset/new/">
+                  <NavLink className="text-white">Add Dataset</NavLink>
+                </Link>
               </NavItem>
             </VisibleWhenAuthenticated>
           </Nav>

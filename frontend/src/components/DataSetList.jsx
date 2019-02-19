@@ -47,7 +47,6 @@ class DataSetList extends Component {
     var { page, page_size } = this.props;
     this.setState({ loading: true })
     var headers = {}
-    console.log(this.props)
     if (this.props.token) {
       headers = {'Authorization': `Token ${this.props.token}`}
     }

@@ -1,8 +1,6 @@
 from django.db import models
 from taggit.managers import TaggableManager
 
-# TODO: create a separtea dataset request model
-# so we don't have to check for approved data while generating options for selects
 
 class DataSet(models.Model):
     name = models.TextField()
@@ -20,6 +18,11 @@ class DataSet(models.Model):
     
     approved = models.BooleanField(default=False)
     added_at = models.DateTimeField(auto_now_add=True)
+
+    submitter_name = models.CharField(max_length=4000, blank=True)
+    submitter_email = models.EmailField(blank=True)
+    submitter_organization = models.CharField(max_length=4000, blank=True)
+    submitter_subscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

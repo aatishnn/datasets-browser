@@ -26,7 +26,7 @@ export const refreshFilterSchema = () => {
       headers = {'Authorization': `Token ${token}`}
     }
     let schemaData = getFilterSchema(getState())
-    if( schemaData.schema === null && schemaData.schemaLoading === false ) {
+    if( schemaData.schemaLoading === false ) {
       dispatch(setSchemaLoading(true))
       Axios.get('/api/datasets/schema/', {headers: headers})
         .then(res => dispatch(setSchema(res.data.filters)))
