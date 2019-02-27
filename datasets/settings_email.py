@@ -1,8 +1,9 @@
 from decouple import config
 
-DEFAULT_FROM_EMAIL = 'no-reply@datasets-bn.herokuapp.com'
+DEFAULT_FROM_EMAIL = 'no-reply@datasets.librenepal.com'
 MODERATOR_EMAILS = (
     'aatishnn@gmail.com',
+    'bikalpabneupane@gmail.com'
 )
 
 EMAIL_HOST = config('EMAIL_HOST')
