@@ -91,8 +91,10 @@ class DataSetList extends Component {
     }
     return (
       <div>
-        {this.state.dataSets.map(dataSet => (
-          <DataSetRow data={dataSet} key={dataSet.id} className="mb-4" />
+        {_.filter(this.state.dataSets, (d) => d.name).map(dataSet => (
+          <DataSetRow data={dataSet} key={dataSet.id} className="mb-1" 
+            collapse={dataSet.id === this.state.dataSets[0].id}
+           />
         ))}
         <div className="float-right">
           <PagePagination page={page} pages={pages} onPageChange={this.onPageChange} />

@@ -15,7 +15,7 @@ const initialState = {
   q: '',
   page: 1,
   pages: 1,  // we don't know yet
-  page_size: 10,
+  page_size: 50,
   schema: null,
   schemaLoading: false
 }
