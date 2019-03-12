@@ -27,6 +27,10 @@ class DataSetRow extends Component {
             <Button color="white" outline size="sm" onClick={() => this.setState({collapse:!this.state.collapse})}>{this.state.collapse ? '🡣' : '🡡'}</Button>
           </span>
           </h2>
+                 
+          {data.labels.map(label => {
+            return <Badge className="mr-1" key={label} color="white">{label}</Badge>
+          })}
           
           <span className="float-right">
             <DataSetEditLink id={data.id} />
@@ -44,23 +48,9 @@ class DataSetRow extends Component {
                 {_.truncate(data.description, { length: 200, separator: '.' })} <Link to={`/dataset/${data.id}`}>more</Link>
               </CardText>
               <CardText>
-                <strong>Labels</strong><br />
-                
-          {data.labels.map(label => {
-            return <Badge className="mr-1" key={label} color="info">{label}</Badge>
-          })}
-          
-              </CardText>
-              <CardText>
-                <strong>Organization collecting data:</strong><br />
-                {data.organization}
-              </CardText>
-              <CardText>
-                <strong>Location of Individuals:</strong><br />
-                {data.location}
-                <br/>
-                <br/>
-                {data.file_format && <Badge className="mr-1" color="white">{data.file_format}</Badge>}
+        {data.organization && <Badge className="mr-1" color="white">{data.organization}</Badge>}
+        {data.location && <Badge className="mr-1" color="white">{data.location}</Badge>}
+        {data.file_format && <Badge className="mr-1" color="white">{data.file_format}</Badge>}
         {data.data_type && <Badge className="mr-1" color="white">{data.data_type}</Badge>}
         {data.study_type && <Badge className="mr-1" color="white">{data.study_type}</Badge>}
         {data.ownership && <Badge className="mr-1" color="white">{data.ownership}</Badge>}

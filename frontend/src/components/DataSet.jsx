@@ -24,7 +24,7 @@ class DataSet extends Component {
           </h2>
 
           {data.labels.map(label => {
-            return <Badge className="mr-1" key={label} color="info">{label}</Badge>
+            return <Badge className="mr-1" key={label} color="white">{label}</Badge>
           })}
           <span className="float-right">
             <DataSetEditLink id={data.id} />
@@ -39,15 +39,9 @@ class DataSet extends Component {
                 {data.description}
               </CardText>
               <CardText>
-                <strong>Organization collecting data:</strong><br />
-                {data.organization}
-              </CardText>
-              <CardText>
-                <strong>Location of Individuals:</strong><br />
-                {data.location}
-                <br/>
-                <br/>
-                {data.file_format && <Badge className="mr-1" color="white">{data.file_format}</Badge>}
+              {data.organization && <Badge className="mr-1" color="white">{data.organization}</Badge>}
+        {data.location && <Badge className="mr-1" color="white">{data.location}</Badge>}
+        {data.file_format && <Badge className="mr-1" color="white">{data.file_format}</Badge>}
         {data.data_type && <Badge className="mr-1" color="white">{data.data_type}</Badge>}
         {data.study_type && <Badge className="mr-1" color="white">{data.study_type}</Badge>}
         {data.ownership && <Badge className="mr-1" color="white">{data.ownership}</Badge>}
