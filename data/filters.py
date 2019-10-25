@@ -15,6 +15,14 @@ class DataSetFilter(django_filters.FilterSet):
         queryset=Tag.objects.all(),
     )
 
+    file_format = django_filters.ModelMultipleChoiceFilter(
+        field_name='file_formats__name',
+        to_field_name='name',
+        conjoined=False,
+        distinct=True,
+        queryset=Tag.objects.all(),
+    )
+
     def filter_q(self, qs, name, value):
         return qs.filter(
             Q(name__icontains=value) | Q(description__icontains=value)
@@ -24,6 +32,6 @@ class DataSetFilter(django_filters.FilterSet):
         model = DataSet
         fields = [
             'name', 'description', 'organization', 'location', 'data_type',
-            'file_format', 'study_type', 'ownership'
+            'study_type', 'ownership'
         ]
         

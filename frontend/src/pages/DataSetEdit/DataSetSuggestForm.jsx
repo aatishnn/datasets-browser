@@ -19,7 +19,8 @@ const DataSetSchema = Yup.object().shape({
     .url().required('Required'),
   'comments': Yup.string(),
   'organization': Yup.string().required('Required'),
-  'labels': Yup.array().required('Required').min(0),
+  'labels': Yup.array().min(0),
+  'file_formats': Yup.array().min(0),
   'start_year': Yup.number().nullable().positive(),
   'end_year': Yup.number().nullable().positive(),
 
@@ -35,7 +36,6 @@ const initialValues = {
   comments: '',
   organization: '',
   study_type: '',
-  file_format: '',
   location: '',
   ownership: '',
   data_type: '',
@@ -44,6 +44,7 @@ const initialValues = {
   submitter_organization: '',
   submitter_subscribed: true,
   labels: [],
+  file_formats:[], 
   start_year: null,
   end_year: null,
 }
@@ -204,14 +205,15 @@ class DataSetSuggestForm extends Component {
 
             <FormGroup>
               <FileFormatFilter
-                name="file_format"
-                value={values.file_format && { value: values.file_format, label: values.file_format }}
-                isMulti={false}
-                onChange={(value) => setFieldValue('file_format', value.value)}
-                onBlur={() => setFieldTouched('file_format', true)}
+                name="File formats"
+                value={values.file_formats.map(label => {
+                  return { label: label, value: label }
+                })}
+                onChange={(value) => setFieldValue('file_formats', value.map(v => v.value))}
+                onBlur={() => setFieldTouched('file_formats', true)}
               />
               <div class="form-control d-none is-invalid" />
-              <FormFeedback>{errors.file_format}</FormFeedback>
+              <FormFeedback>{errors.file_formats}</FormFeedback>
               <FormText></FormText>
             </FormGroup>
 

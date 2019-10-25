@@ -1,5 +1,13 @@
 from django.db import models
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
+
+
+class TaggedLabelDataSet(TaggedItemBase):
+    content_object = models.ForeignKey('DataSet', on_delete=models.CASCADE)
+
+class TaggedFileFormatDataSet(TaggedItemBase):
+    content_object = models.ForeignKey('DataSet', on_delete=models.CASCADE)
 
 
 class DataSet(models.Model):
@@ -7,14 +15,14 @@ class DataSet(models.Model):
     website = models.URLField()
     description = models.TextField()
     location = models.CharField(max_length=255)
-    labels = TaggableManager()
+    labels = TaggableManager(through=TaggedLabelDataSet, related_name='tagged_labels')
     organization = models.TextField('Organization collecting data')
     start_year = models.PositiveIntegerField(null=True, blank=True)
     end_year = models.PositiveIntegerField(null=True, blank=True)
     data_type = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
     study_type = models.CharField(max_length=255, blank=True)
-    file_format = models.CharField(max_length=255, blank=True)
+    file_formats = TaggableManager(through=TaggedFileFormatDataSet, related_name='file_formats_tagged')
     
     approved = models.BooleanField(default=False)
     added_at = models.DateTimeField(auto_now_add=True)

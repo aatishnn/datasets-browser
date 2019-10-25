@@ -7,6 +7,7 @@ from .models import DataSet
 
 class DataSetSerializer(TaggitSerializer, serializers.ModelSerializer):
     labels = TagListSerializerField()
+    file_formats = TagListSerializerField()
 
     class Meta:
         model = DataSet

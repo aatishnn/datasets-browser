@@ -41,5 +41,5 @@ export const LabelsFilter = SelectFilter("label", "Labels");
 export const DataTypeFilter = SelectFilter("data_type", "Data Type");
 export const OwnershipFilter = SelectFilter("ownership", "Ownership");
 export const StudyTypeFilter = SelectFilter("study_type", "Study Type");
-export const FileFormatFilter = SelectFilter("file_format", "File Format")
+export const FileFormatFilter = SelectFilter("file_formats", "File Formats")
 export const LocationFilter = SelectFilter("location", "Location of Individuals");

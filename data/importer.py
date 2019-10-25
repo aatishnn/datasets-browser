@@ -2,8 +2,9 @@ import csv
 from datetime import date
 from .models import DataSet
 
+
 def normalize_capitalize_remove_na(value):
-    normalized = value.strip().lower().capitalize()
+    normalized = value.strip().lower().capitalize().replace('/', '')
 
     if normalized != "Na":
         return normalized
@@ -41,7 +42,6 @@ def save_csv_row_to_dataset(row):
     dataset.ownership = normalize_capitalize_remove_na(row['ownership'])
     dataset.data_type = normalize_capitalize_remove_na(row['data_type'])
     dataset.study_type = normalize_capitalize_remove_na(row['study_type'])
-    dataset.file_format = normalize_capitalize_remove_na(row['file_format'])
     dataset.approved = True
     dataset.save()
 
@@ -49,9 +49,15 @@ def save_csv_row_to_dataset(row):
     dataset.labels.clear()
     labels = [label.strip() for label in row['labels'].split(',') if label.strip()]
     
-
     for label in labels:
         dataset.labels.add(label)
+
+    dataset.file_formats.clear()
+    file_formats = [normalize_capitalize_remove_na(file_format.strip()) for file_format in row['file_format'].split(',') if file_format.strip()]
+    
+    for file_format in file_formats:
+        dataset.file_formats.add(file_format)
+        
     return dataset
 
 def import_csv(filename):

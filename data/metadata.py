@@ -23,6 +23,11 @@ def get_label_options(request):
     return queryset.exclude(labels__isnull=True).distinct(
         'labels').values_list('labels__name', flat=True)
 
+def get_file_formats_options(request):
+    queryset = get_datasets(request)
+    return queryset.exclude(file_formats__isnull=True).distinct(
+        'file_formats').values_list('file_formats__name', flat=True)
+
 
 class FilterMetadata(BaseMetadata):
     def determine_metadata(self, request, view):
@@ -32,14 +37,14 @@ class FilterMetadata(BaseMetadata):
                 'label':{
                     'options': get_label_options(request)
                 },
+                'file_formats':{
+                    'options': get_file_formats_options(request)
+                },
                 'location': {
                     'options': get_field_options(request, 'location')
                 },
                 'data_type': {
                     'options': get_field_options(request, 'data_type')
-                },
-                'file_format': {
-                    'options': get_field_options(request, 'file_format')
                 },
                 'study_type': {
                     'options': get_field_options(request, 'study_type')

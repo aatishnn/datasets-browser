@@ -41,7 +41,7 @@ class DataSet extends Component {
               <CardText>
               {data.organization && <Badge className="mr-1" color="white">{data.organization}</Badge>}
         {data.location && <Badge className="mr-1" color="white">{data.location}</Badge>}
-        {data.file_format && <Badge className="mr-1" color="white">{data.file_format}</Badge>}
+        {data.file_formats && <Badge className="mr-1" color="white">{data.file_formats.join(', ')}</Badge>}
         {data.data_type && <Badge className="mr-1" color="white">{data.data_type}</Badge>}
         {data.study_type && <Badge className="mr-1" color="white">{data.study_type}</Badge>}
         {data.ownership && <Badge className="mr-1" color="white">{data.ownership}</Badge>}
