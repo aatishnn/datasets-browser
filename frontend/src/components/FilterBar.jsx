@@ -84,7 +84,7 @@ class FilterBar extends Component {
                         value={this.props.fileFormat}
                         onChange={e => this.props.setFileFormat(e)}
                         loading={schemaLoading}
-                        options={schema && this.getSelectOptions('file_format')} />
+                        options={schema && this.getSelectOptions('file_formats')} />
                 </Collapse>
 
             </div>

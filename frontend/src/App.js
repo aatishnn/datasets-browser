@@ -15,6 +15,8 @@ import Login from './pages/Auth/Login';
 import PrivateRoute from './pages/Auth/PrivateRoute';
 import DataSetSuggestPage from './pages/DataSetSuggestPage';
 import DataSetSuggestSuccessPage from './pages/DataSetSuggestSuccessPage';
+import MapPage from './pages/MapPage';
+
 
 
 class App extends Component {
@@ -23,9 +25,10 @@ class App extends Component {
     return (
       <div>
         <TopNav />
-        <Container className="mt-4">
+        <div>
           <Switch>
-            <Route exact path="/" component={SearchPage} />
+            <Route exact path="/" component={MapPage} />
+            <Route exact path="/s" component={SearchPage} />
             <Route exact path="/login/" component={Login} />
             <Route exact path="/dataset/suggest/" component={DataSetSuggestPage} />
             <Route exact path="/dataset-suggest-success/" component={DataSetSuggestSuccessPage} />
@@ -34,7 +37,7 @@ class App extends Component {
             <Route exact path="/dataset/:id/" component={DataSetDetailPage} />
             <PrivateRoute exact path="/dataset/:id/edit/" component={DataSetEdit} />
           </Switch>
-        </Container>
+        </div>
         <ToastContainer
           position="bottom-center"
           autoClose={5000}
