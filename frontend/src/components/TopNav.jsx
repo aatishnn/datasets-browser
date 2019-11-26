@@ -1,15 +1,7 @@
-import React, { Component } from 'react'
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from 'reactstrap';
-import { Link } from 'react-router-dom'
-import VisibleWhenAuthenticated from '../pages/Auth/VisibleWhenAuthenticated';
+import React, { Component } from "react";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
+import VisibleWhenAuthenticated from "../pages/Auth/VisibleWhenAuthenticated";
 
 class TopNav extends Component {
   constructor(props) {
@@ -28,11 +20,20 @@ class TopNav extends Component {
   render() {
     return (
       <Navbar color="info" dark expand="md">
-        <NavbarBrand><Link to="/" className="text-white">MD4SG Datasets</Link></NavbarBrand>
+        <NavbarBrand>
+          <Link to="/" className="text-white">
+            MD4SG Datasets
+          </Link>
+        </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <VisibleWhenAuthenticated reverse={true}>
+              <NavItem>
+                <Link to={`/s`}>
+                  <NavLink className="text-white">Dataset Search</NavLink>
+                </Link>
+              </NavItem>
               <NavItem>
                 <Link to="/login/">
                   <NavLink className="text-white">Moderators Login</NavLink>
@@ -54,8 +55,8 @@ class TopNav extends Component {
           </Nav>
         </Collapse>
       </Navbar>
-    )
+    );
   }
 }
 
-export default TopNav
+export default TopNav;
